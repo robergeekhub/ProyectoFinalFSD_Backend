@@ -13,9 +13,13 @@ class CreateOrderProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('order-_products', function (Blueprint $table) {
+        Schema::create('orders_products', function (Blueprint $table) {
             $table->id();
+            $table->integer('order_id');
+            $table->integer('product_id');
+            $table->integer('units');
             $table->timestamps();
+
         });
     }
 
