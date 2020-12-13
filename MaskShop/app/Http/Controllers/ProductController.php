@@ -16,34 +16,28 @@ class ProductController extends Controller
             return response($products);
     }
 
-    public function create()
+    public function getId()
     {
-        //
+        $product = Product::with('category')->find($id);
+            return response($product);
     }
 
+    public function getName()
+    {
+        $product = Product::with('category')->find($name);
+            return response($product);
+    }
+
+    public function getPriceUpward()
+    {
+        $products = Product::orderBy('price','upward')->get();
+            return response($products);
+    }
+
+    public function getPriceDescendent()
+    {
+        $products = Product::orderBy('price','descendent')->get();
+            return response($products);
+    }
     
-    public function store(Request $request)
-    {
-        //
-    }
-
-    public function show(Product $product)
-    {
-        //
-    }
-
-    public function edit(Product $product)
-    {
-        //
-    }
-
-    public function update(Request $request, Product $product)
-    {
-        //
-    }
-
-    public function destroy(Product $product)
-    {
-        //
-    }
 }
