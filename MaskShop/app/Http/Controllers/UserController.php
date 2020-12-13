@@ -62,10 +62,5 @@ class UserController extends Controller
         return response()->json('Logout done successfully.',200);
 }
 
-    public function show(User $id)
-    {
-        $user = User::find($user->id);
-         return $user;
     }
 
-}
