@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -19,3 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::apiResource('/users', UserController::class)->middleware('auth:api');
+Route::post('register',[UserController::class,'register']); 
+Route::post('login',[UserController::class,'login'])->name('login'); 
+Route::get('logout',[UserController::class,'logout'])->name('logout')->middleware('auth:api'); 
