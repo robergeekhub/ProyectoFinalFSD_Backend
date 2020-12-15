@@ -21,6 +21,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::group(['middleware' => 'admin'], function () {
+    Route::get('admin', [UserController::class,'admin']);
+    
+});
 Route::apiResource('users', UserController::class)->middleware('auth:api');
 Route::post('register',[UserController::class,'store']); 
 Route::post('login',[UserController::class,'login'])->name('login'); 
@@ -32,7 +36,8 @@ Route::get('getId/{id}',[ProductController::class,'getId']);
 Route::get('getName/{name}',[ProductController::class,'getName']);
 Route::get('getPriceUpward',[ProductController::class,'getPriceUpward']);
 Route::get('getPriceAscendent',[ProductController::class,'getPriceAscendent']);
+Route::post('/',[ProductController::class,'insert']);
+Route::delete('/{id}',[ProductController::class,'delete']);
 
-Route::apiResource('users', UserController::class)->middleware('auth:api');
 
 
