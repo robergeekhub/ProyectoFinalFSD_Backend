@@ -25,6 +25,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/adminproducts', [UserController::class,'admin']);
     
 });
+Route::group(['middleware' => ['cors']], function () {
 Route::apiResource('users', UserController::class)->middleware('auth:api');
 Route::post('register',[UserController::class,'store']); 
 Route::post('login',[UserController::class,'login'])->name('login'); 
@@ -46,7 +47,7 @@ Route::post('/',[OrderController::class,'insert']);
 Route::put('/id',[OrderController::class,'modify']);
 Route::delete('/id',[OrderController::class,'delete']);
 
-
+});
 
 
 
