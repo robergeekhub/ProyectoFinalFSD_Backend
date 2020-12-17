@@ -49,9 +49,9 @@ class ProductController extends Controller
                 'description' => 'required|string',
                 'img' => 'required|image',
                 'category_id'=>'required'
-            ]); 
+            ]);
             $imageName = time() . '-' . request()->img->getClientOriginalName(); 
-            request()->img->move('images/products', $imageName);
+            request()->img->move('images/products', $imageName); 
             $body['image_path'] = $imageName;
             $product = Product::create($body);
         } catch (\Exception $e) {
@@ -59,16 +59,49 @@ class ProductController extends Controller
         }
 
         return response($product, 201);
-
     }
-
+    public function uploadImage(Request $request, $id)
+    {
+        try {
+            $request->validate(['img' => 'required|image']);
+            $product = Product::find($id); 
+            $imageName = time() . '-' . request()->img->getClientOriginalName();
+            request()->img->move('images/products', $imageName); 
+            $product->update(['image_path' => $imageName]);
+            return response($product);
+        } catch (\Exception $e) {
+            return response([
+                'error' => $e,
+            ], 500);
+        }
+    }
+    public function modify(Request $request, $id)
+    {
+        try {
+            $body = $request->validate([
+                'name' => 'string|max:40',
+                'description' => 'string|max:250',
+                'category_id' => 'integer'
+            ]);
+            $product = Product::find($id);
+            $product->modify($body);
+            return response([
+                'message' => 'Producto actualizado con éxito',
+                'product' => $product
+            ]);
+        } catch (\Exception $e) {
+            return response([
+                'error' => $e
+            ], 500);
+        }
+    }
     public function delete($id)
     {
         try {
             $product = Product::find($id);
             $product->delete();
             return response([
-                'message' => 'product successfully removed',
+                'message' => 'Producto eliminado con éxito',
                 'product' => $product
             ]);
         } catch (\Exception $e) {
