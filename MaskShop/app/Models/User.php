@@ -11,7 +11,7 @@ use Laravel\Passport\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens,HasFactory, Notifiable;
-    protected $guarded=[];
+    
 
     protected $fillable = [
         'name',
@@ -30,7 +30,7 @@ class User extends Authenticatable
     
     public function orders()
     {
-       return $this->hasMany('App\Models\Order');
+       return $this->hasMany('\App\Models\Order');
 }
 
 }

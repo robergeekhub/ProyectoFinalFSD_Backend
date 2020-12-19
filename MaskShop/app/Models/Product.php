@@ -9,16 +9,14 @@ class Product extends Model
 {
     protected $fillable = [
         'name',
-        'price',
         'description',
+        'price',
         'image_path',
-        'category_id',
+        
     ];
-    
     public function order()
     {
-        return $this->belongsToMany('App\Models\Order');
+       return $this->belongsToMany('\App\Models\Order');
     }
-
 }
 
