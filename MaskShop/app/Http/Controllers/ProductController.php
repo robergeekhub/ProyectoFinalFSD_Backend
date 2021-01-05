@@ -18,13 +18,12 @@ class ProductController extends Controller
                 'image_path'=>'required',
             ];
             $messages=[
-                'name.required'=>'The name field is empty.',
-                'price.required'=>'The price field is empty.',
-                'description.required'=>'The description field is empty.',
-                'image_path.required'=>'The image field is empty.',
-    
+                'name.required'=>'The name field is empty',
+                'description.required'=>'The description field is empty',
+                'price.required'=>'The price field is empty',
+                'image_path.required'=>'The image field is empty',
             ];
-            $validator = Validator::make($input, $rules,$messages);
+            $validator = Validator::make($input,$rules,$messages);
             if ($validator->fails()) {
                 return response()->json($validator->errors(), 400);
             }else{
@@ -56,4 +55,9 @@ class ProductController extends Controller
                 return response()->json($e, 400);
             }
     }
+    public function indexAll()
+    {
+        return Product::all();
+    }
+    
 }

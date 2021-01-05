@@ -17,11 +17,7 @@ class ProductSeeder extends Seeder
     {
         $products = [
             [
-            'id' => null,
-            'name' => 'GTA V ',
-            'description' => 'Grand Theft Auto V Premium Edition PS4',
-            'price' => 22.69,
-            'image_path' => 'gta.jpg',
+          
             ]
         ];
         foreach ($products as $product) {

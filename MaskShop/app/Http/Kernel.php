@@ -2,10 +2,16 @@
 
 namespace App\Http;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
-
+use Illuminate\Routing\Router;
 class Kernel extends HttpKernel
 {
+    public function construct( Application $app, Router $router ) {
+        parent::construct( $app, $router );
+        $this->prependToMiddlewarePriority(\App\Http\Middleware\ForceHeaderAcceptJson::class);
+    }
+
     protected $middleware = [
         \App\Http\Middleware\TrustHosts::class,
         \App\Http\Middleware\TrustProxies::class,
@@ -36,7 +42,6 @@ class Kernel extends HttpKernel
 
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
-        'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
@@ -45,6 +50,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        "cors" => \App\Http\Middleware\Cors::class,
+        'role'=> \App\Http\Middleware\Role::class,
+        'ForceHeaderAcceptJson'=> \App\Http\Middleware\ForceHeaderAcceptJson::class,
     ];
 }

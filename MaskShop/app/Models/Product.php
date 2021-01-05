@@ -14,9 +14,6 @@ class Product extends Model
         'image_path',
         
     ];
-    public function order()
-    {
-       return $this->belongsToMany('\App\Models\Order');
-    }
+
 }
 
